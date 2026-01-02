@@ -1,24 +1,40 @@
 package at.obb.automation.tests;
 
+import at.obb.automation.pages.HomePage;
 import at.obb.automation.utils.Driver;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ObbFirstTest {
 
+        HomePage homePage;
+
+        @BeforeEach
+                public void setUp() {
+        // 1. Open the OBB home page
+        Driver.getDriver().get("https://www.oebb.at/en/");
+        homePage = new HomePage();
+        }
+
     @Test
     public void titleTest () {
-        // Open the OBB home page
-        Driver.getDriver().get("https://www.oebb.at/en/");
+          // 2. Handle the cookie banner first (Pre-condition)
+        homePage.acceptCookies();
 
-        // Check the page title
+        // 3. Check the page title
         String title = Driver.getDriver().getTitle();
         System.out.println("Page Title: " + title);
 
-        // Verify that the title contains "ÖBB"
+        // 4. Verify that the title contains "ÖBB"
         assertTrue(title.contains("ÖBB"), "Title does not contain ÖBB!");
 
-        // Close the driver
+    }
+
+    @AfterEach
+    public void tearDown() {
+            // 5. Close the driver after the test is finished
         Driver.closeDriver();
     }
 
