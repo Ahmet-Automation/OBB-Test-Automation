@@ -1,6 +1,7 @@
 package at.obb.automation.tests;
 
 import at.obb.automation.pages.HomePage;
+import at.obb.automation.pages.JourneyPlannerPage;
 import at.obb.automation.utils.Driver;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,7 +16,7 @@ public class ObbFirstTest {
                 public void setUp() {
         // 1. Open the OBB home page
         Driver.getDriver().get("https://www.oebb.at/en/");
-        homePage = new HomePage();
+        homePage = new HomePage(Driver.getDriver());
         }
 
     @Test
@@ -29,7 +30,6 @@ public class ObbFirstTest {
 
         // 4. Verify that the title contains "ÖBB"
         assertTrue(title.contains("ÖBB"), "Title does not contain ÖBB!");
-
     }
 
     @AfterEach
